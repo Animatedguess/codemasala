@@ -53,7 +53,7 @@ const Navbar = () => {
       </div>
 
       {/* right side */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
         <LayoutIcon className="size-9 text-gray-700 p-2 rounded-lg hover:bg-gray-100 hover:shadow-md" />
         <SettingIcon className="size-9 text-gray-700 p-2 rounded-lg hover:bg-gray-100 hover:shadow-md" />
         <div className="flex items-center group relative h-9 w-10 gap-1 rounded-lg hover:bg-gray-100 hover:shadow-md p-1 transition-all">
