@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.0.14",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-split": "^2.0.14",
     "tailwindcss": "^4.0.14"
   },
   "devDependencies": {

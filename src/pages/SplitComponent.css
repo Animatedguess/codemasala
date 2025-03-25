@@ -1,0 +1,17 @@
+.split-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .pane {
+    background: #f0f0f0;
+    padding: 20px;
+    overflow: auto;
+  }
+  
+  .gutter {
+    background: #ccc;
+    cursor: col-resize;
+    width: 8px;
+  }
+  

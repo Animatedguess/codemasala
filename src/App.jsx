@@ -1,9 +1,9 @@
-import Navbar from "./components/navbar/Navbar";
+import CodeEditorPage from "./pages/CodeEditorPage";
 
 function App() {
   return (
     <>
-      <Navbar/>
+      <CodeEditorPage/>
     </>
   );
 }
