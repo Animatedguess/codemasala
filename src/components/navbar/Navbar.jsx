@@ -8,7 +8,7 @@ import PlaceHolder from "../../assets/icons/PlaceHolder";
 import AlarmClock from "../../assets/icons/AlarmClock";
 import NotesIcon from "../../assets/icons/NotesIcon";
 import LayoutIcon from "../../assets/icons/LayoutIcon";
-import SettingIcon from "../../assets/icons/SettingIcon";
+import SettingIcon from "../../assets/icons/SettingIcon.jsx";
 import UnfireIcon from "../../assets/icons/UnfireIcon";
 import FireIcon from "../../assets/icons/FireIcon";
 import ProfileIcon from "../../assets/icons/ProfileIcon";
