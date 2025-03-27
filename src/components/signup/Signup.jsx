@@ -1,6 +1,20 @@
 import React from 'react'
+import { useState } from 'react';
 
 const Signup = () => {
+  const [error, setError] = useState("");
+  // Custom Google Sign-Up Function
+  const handleGoogleSignUp = async () => {
+    try {
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/", // Redirect to the dashboard or another page
+      });
+    } catch (err) {
+      console.error("Google Sign-In Error:", err);
+      setError("Failed to sign in with Google.");
+    }
+  };
   return (
     <div className="bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300 h-screen flex items-center justify-center font-sans font-medium overflow-hidden relative ">
       <div className=" flex item-center justify-center w-[400px] h-[580px] bg-white border-0 rounded-lg shadow-lg shadow-blue-950  ">
@@ -15,7 +29,9 @@ const Signup = () => {
           <div className="text-blue-950 text-xl font-medium ">
             Create an Account
           </div>
-          <div className="p-1 bg-blue-950 border-0 rounded-lg">
+          <div 
+          onClick={handleGoogleSignUp}
+          className="p-1 bg-blue-950 border-0 rounded-lg">
             <div className="px-4 py-2 flex item-center space-x-5">
               <svg className="w-6 h-6" viewBox="0 0 40 40">
                 <path
