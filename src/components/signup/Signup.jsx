@@ -1,20 +1,22 @@
 import React from 'react'
 import { useState } from 'react';
+import { useSignUp } from "@clerk/clerk-react";
 
 const Signup = () => {
   const [error, setError] = useState("");
+  const { signUp, isLoaded } = useSignUp();
   // Custom Google Sign-Up Function
-  const handleGoogleSignUp = async () => {
-    try {
-      await signIn.authenticateWithRedirect({
-        strategy: "oauth_google",
-        redirectUrl: "/", // Redirect to the dashboard or another page
-      });
-    } catch (err) {
-      console.error("Google Sign-In Error:", err);
-      setError("Failed to sign in with Google.");
-    }
-  };
+   const handleGoogleSignUp = async () => {
+     try {
+       await signUp.authenticateWithRedirect({
+         strategy: "oauth_google",
+         redirectUrl: "/", // Redirect to the dashboard or another page
+       });
+     } catch (err) {
+       console.error("Google Sign-Up Error:", err);
+       setError("Failed to sign up with Google.");
+     }
+   };
   return (
     <div className="bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300 h-screen flex items-center justify-center font-sans font-medium overflow-hidden relative ">
       <div className=" flex item-center justify-center w-[400px] h-[580px] bg-white border-0 rounded-lg shadow-lg shadow-blue-950  ">
