@@ -41,7 +41,7 @@ const Signin = () => {
     }
   };
   return (
-    <div className="bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300 h-screen flex items-center justify-center font-sans font-medium">
+    <div className="bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300 h-screen flex items-center justify-center font-sans font-medium ">
       <div className=" flex item-center justify-center w-[400px] h-[540px] bg-white border-0 rounded-lg shadow-lg shadow-blue-950 ">
         <div className="w-40 h-40 bg-blue-600 rounded-full absolute -left-10 -top-10" />
         <div className="w-40 h-40 bg-blue-400 rounded-full absolute -right-10 -bottom-10" />
