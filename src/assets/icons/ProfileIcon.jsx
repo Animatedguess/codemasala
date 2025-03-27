@@ -4,12 +4,12 @@ const ProfileIcon = ({className}) => (
     xmlns="http://www.w3.org/2000/svg"
     width={800}
     height={800}
-    fill="none"
+    fill="currentColor"
     viewBox="0 0 24 24"
     className={className}
   >
     <path
-      stroke="#292D32"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
@@ -17,7 +17,7 @@ const ProfileIcon = ({className}) => (
       opacity={0.4}
     />
     <path
-      stroke="#292D32"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
@@ -25,7 +25,7 @@ const ProfileIcon = ({className}) => (
       opacity={0.34}
     />
     <path
-      stroke="#292D32"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
