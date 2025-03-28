@@ -65,7 +65,7 @@ const Signin = () => {
       );
     }
   };
-
+//reset password
   const handleResetPassword = async () => {
     if (!isLoaded) return;
 
@@ -94,6 +94,7 @@ const Signin = () => {
     <>
       {isForget ? (
         resetStep ? (
+          // second step where u enter new password
           <div className="h-screen flex items-center justify-center bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300">
             <div className="bg-white p-8 rounded-lg shadow-lg text-center w-[400px]">
               <h2 className="text-xl font-semibold mb-4 text-blue-950">
@@ -135,6 +136,7 @@ const Signin = () => {
             </div>
           </div>
         ) : (
+          //step-1 where reset code send to ur email id
           <div className="h-screen flex items-center justify-center bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300">
             <div className="bg-white p-8 rounded-lg shadow-lg text-center w-[400px]">
               <h2 className="text-xl font-semibold mb-4 text-blue-950">
@@ -176,6 +178,7 @@ const Signin = () => {
           </div>
         )
       ) : (
+        //main sign in page
         <div className="bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300 h-screen flex items-center justify-center font-sans font-medium overflow-hidden relative">
           <div className=" flex item-center justify-center w-[400px] h-[540px] bg-white border-0 rounded-lg shadow-lg shadow-blue-950 ">
             <div className="w-40 h-40 bg-blue-600 rounded-full absolute -left-10 -top-10" />
@@ -278,7 +281,6 @@ const Signin = () => {
               </div>
             </div>
           </div>
-              
         </div>
       )}
     </>
