@@ -4,14 +4,16 @@ import UserProfile from "./components/userprofile/UserProfile";
 import Signin from "./components/signin/Signin";
 import Signup from "./components/signup/Signup";
 
+
 function App() {
   return (
     <>
       {/* <CodeEditorPage/> */}
       {/* <Navbar2/> */}
       {/* <UserProfile/> */}
-      {/* <Signin/> */}
-      <Signup/>
+      <Signin/>
+      {/* <ResetCode/> */}
+
       
     </>
   );
