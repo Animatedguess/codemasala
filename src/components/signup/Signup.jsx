@@ -5,21 +5,105 @@ import { useSignUp } from "@clerk/clerk-react";
 const Signup = () => {
   const [error, setError] = useState("");
   const { signUp, isLoaded } = useSignUp();
-  // Custom Google Sign-Up Function
-   const handleGoogleSignUp = async () => {
-     try {
-       await signUp.authenticateWithRedirect({
-         strategy: "oauth_google",
-         redirectUrl: "/", // Redirect to the dashboard or another page
-       });
-     } catch (err) {
-       console.error("Google Sign-Up Error:", err);
-       setError("Failed to sign up with Google.");
-     }
-   };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pendingVerification, setPendingVerification] = useState(false); // NEW
+  const [verificationCode, setVerificationCode] = useState(""); // NEW
+  const handleSignUp = async () => {
+    if (!isLoaded) return;
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const result = await signUp.create({
+        emailAddress: email,
+        password,
+      });
+
+      console.log("Signup Success:", result);
+
+      await signUp.prepareEmailAddressVerification();
+      setPendingVerification(true);
+      setError(""); // Clear errors if successful
+      alert("Verification email sent! Please check your inbox.");
+
+      // Optional: redirect to a verification page or dashboard
+      // window.location.href = "/verify";
+    } catch (err) {
+      console.error("Signup Error:", err);
+      const message =
+        err.errors?.[0]?.message ||
+        err.message ||
+        "Something went wrong while creating your account.";
+      setError(message);
+    }
+  };
+  const handleVerifyCode = async () => {
+    try {
+      const result = await signUp.attemptEmailAddressVerification({
+        code: verificationCode,
+      });
+
+      if (result.status === "complete") {
+        window.location.href = "/"; // redirect on success
+      } else {
+        setError("Invalid verification code.");
+      }
+    } catch (err) {
+      console.error("Verification Error:", err);
+      setError("Failed to verify code.");
+    }
+  };
+  //verification code part
+  if (pendingVerification) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center w-[400px]">
+          <h2 className="text-xl font-semibold mb-4 text-blue-950">
+            Verify Your Email
+          </h2>
+          <p className="mb-4 text-sm text-gray-600">
+            We've sent a verification code to <strong>{email}</strong>. Enter it
+            below.
+          </p>
+          <input
+            type="text"
+            placeholder="Enter verification code"
+            value={verificationCode}
+            onChange={(e) => setVerificationCode(e.target.value)}
+            className="block w-full mb-4 px-4 py-2 border-2 border-blue-900 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          />
+          {error && <p className="text-red-500 mb-2">{error}</p>}
+          <button
+            onClick={handleVerifyCode}
+            className="bg-blue-950 text-white font-semibold px-6 py-2 rounded-lg"
+          >
+            Verify
+          </button>
+        </div>
+      </div>
+    );
+  };
+   // Custom Google Sign-Up Function
+ const handleGoogleSignUp = async () => {
+   try {
+     await signUp.authenticateWithRedirect({
+       strategy: "oauth_google",
+       redirectUrl: "/", // Redirect to the dashboard or another page
+     });
+   } catch (err) {
+     console.error("Google Sign-Up Error:", err);
+     setError("Failed to sign up with Google.");
+   }
+ };
+
   return (
     <div className="bg-gradient-to-r from-blue-800 via-blue-500 to-blue-300 h-screen flex items-center justify-center font-sans font-medium overflow-hidden relative ">
-      <div className=" flex item-center justify-center w-[400px] h-[580px] bg-white border-0 rounded-lg shadow-lg shadow-blue-950  ">
+      <div className=" flex item-center justify-center w-[400px] h-[595px] bg-white border-0 rounded-lg shadow-lg shadow-blue-950  ">
         <div className="w-40 h-40 bg-blue-600 rounded-full absolute -left-10 -top-10" />
         <div className="w-40 h-40 bg-blue-400 rounded-full absolute -right-10 -bottom-10" />
         <div className="w-60 h-60 bg-blue-600 rounded-full absolute -left-10 -bottom-10"></div>
@@ -31,9 +115,10 @@ const Signup = () => {
           <div className="text-blue-950 text-xl font-medium ">
             Create an Account
           </div>
-          <div 
-          onClick={handleGoogleSignUp}
-          className="p-1 bg-blue-950 border-0 rounded-lg">
+          <div
+            onClick={handleGoogleSignUp}
+            className="p-1 bg-blue-950 border-0 rounded-lg"
+          >
             <div className="px-4 py-2 flex item-center space-x-5">
               <svg className="w-6 h-6" viewBox="0 0 40 40">
                 <path
@@ -75,9 +160,12 @@ const Signup = () => {
               Email Address
             </label>
             <input
-              id="LoggingEmailAddress"
-              className="block w-full px-4 py-2 text-black bg-white border-2   border-blue-900 rounded-lg  focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
               type="email"
+              required
+              placeholder="Enter email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="block w-full px-4 py-2 text-black bg-white border-2   border-blue-900 rounded-lg  focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
           <div>
@@ -88,8 +176,11 @@ const Signup = () => {
               Password
             </label>
             <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="block w-full px-4 py-2 text-black bg-white border-2   border-blue-900 rounded-lg  focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
-              type="email"
             />
           </div>
           <div>
@@ -100,13 +191,18 @@ const Signup = () => {
               Confirm Password
             </label>
             <input
+              type="password"
+              placeholder="Enter confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="block w-full px-4 py-2 text-black bg-white border-2   border-blue-900 rounded-lg  focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
-              type="email"
             />
           </div>
+          {error && <p className="text-red-500">{error}</p>}
+
           <div className=" flex flex-col items-center space-y-2.5">
             <div className="bg-blue-950 border-0 rounded-lg text-white font-semibold p-2 w-fit flex items-center justify-center ">
-              <button>Sign Up</button>
+              <button onClick={handleSignUp}>Sign Up</button>
             </div>
             <p className="text-sm text-center text-blue-950  whitespace-nowrap hover:underline">
               Already have an account? Sign in
