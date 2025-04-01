@@ -43,7 +43,7 @@ const Navbar2 = () => {
       </div>
       {/* UserProfile Popup */}
       {isClicked && (
-        <div className="absolute top-[80px] right-16 z-50">
+        <div className="absolute top-[35px] right-16 z-50">
           <UserProfile />
         </div>
       )}
